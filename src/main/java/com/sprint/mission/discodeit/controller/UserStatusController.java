@@ -16,11 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/user-status")
 public class UserStatusController {
-    private final UserStatusService userStatusService;
 
-    @PatchMapping
-    public ResponseEntity<ApiResponse<UserStatus>> update(@Valid @RequestBody UserStatusUpdateByUserIdRequest request) {
-        UserStatus status = userStatusService.updateByUserId(request);
-        return ResponseEntity.ok().body(ApiResponse.success(status));
-    }
+  private final UserStatusService userStatusService;
+
+
 }
