@@ -46,6 +46,7 @@ public class ReadStatusController {
     return ResponseEntity.ok().body(ApiResponse.success(list));
   }
 
+  @Tag(name = "특정 읽음 상태 수정")
   @PatchMapping("/{readStatusId}")
   public ResponseEntity<ApiResponse<ReadStatus>> update(
       @PathVariable("readStatusId") UUID readStatusId,

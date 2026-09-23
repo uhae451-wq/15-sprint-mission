@@ -55,7 +55,7 @@ public class UserController {
       throw new IllegalArgumentException("파일이 비었습니다.");
     }
     String fileName = multipartFile.getOriginalFilename();
-    String extension = multipartFile.getContentType();
+    String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
     if (!ALLOWED_EXTENSIONS.contains(extension)) {
       throw new IllegalArgumentException("허용되지 않은 확장자 입니다.");
     }
@@ -114,6 +114,7 @@ public class UserController {
   }
 
   // 심화요구사항 DTO 변환
+  @Tag(name = "전체 유저 호출")
   @GetMapping("/findAll")
   public ResponseEntity<ApiResponse<List<UserDto>>> findAll() {
     List<UserResponse> allUser = userService.findAll();
@@ -127,6 +128,7 @@ public class UserController {
     return ResponseEntity.ok().body(ApiResponse.success(dtoList));
   }
 
+  @Tag(name = "특정 User의 온라인 상태 수정")
   @PatchMapping("/{userId}/userStatus")
   public ResponseEntity<ApiResponse<UserStatus>> update(@PathVariable("userId") UUID userId) {
     UserStatus status = userStatusService.updateByUserId(userId);

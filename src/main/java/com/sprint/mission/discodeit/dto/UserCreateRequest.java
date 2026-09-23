@@ -1,21 +1,26 @@
 package com.sprint.mission.discodeit.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record UserCreateRequest(
 
-        @NotBlank
-        String nickname,
+    @NotBlank
+    @Schema(description = "화면에 표시할 닉네임", example = "nickname")
+    String nickname,
 
-        @NotBlank
-        String username,
+    @NotBlank
+    @Schema(description = "로그인에 사용할 사용자 이름", example = "username")
+    String username,
 
-        @NotBlank
-        @Email
-        String email,
+    @NotBlank
+    @Email
+    @Schema(description = "사용자 이메일", example = "user@gmail.com")
+    String email,
 
-        @NotBlank
-        String password) {
+    @NotBlank
+    @Schema(description = "로그인 비밀번호", example = "userpassword")
+    String password) {
 
 }

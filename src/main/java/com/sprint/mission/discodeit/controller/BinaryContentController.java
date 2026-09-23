@@ -23,10 +23,10 @@ public class BinaryContentController {
 
   @Tag(name = "첨부파일 정보 호출")
   @GetMapping("/{binaryContentId}")
-  public ResponseEntity<BinaryContent> getBinaryContent(
+  public ResponseEntity<ApiResponse<BinaryContent>> getBinaryContent(
       @PathVariable("binaryContentId") UUID binaryContentId) {
     BinaryContent binaryContent = binaryContentService.find(binaryContentId);
-    return ResponseEntity.ok().body(binaryContent);
+    return ResponseEntity.ok().body(ApiResponse.success(binaryContent));
   }
 
   @Tag(name = "첨부파일 다운로드")
