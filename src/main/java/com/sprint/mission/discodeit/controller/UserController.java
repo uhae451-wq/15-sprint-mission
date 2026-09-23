@@ -52,13 +52,13 @@ public class UserController {
             throw new IllegalArgumentException("파일이 비었습니다.");
         }
         String fileName = multipartFile.getOriginalFilename();
-        String extension = fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
+        String extension = multipartFile.getContentType();
         if(!ALLOWED_EXTENSIONS.contains(extension)){
             throw new IllegalArgumentException("허용되지 않은 확장자 입니다.");
         }
         String contentType = multipartFile.getContentType();
         if(contentType == null || !contentType.startsWith("image/")){
-            throw new ImagingOpException("이미지 파일만 업로드 가능합니다.");
+            throw new IllegalArgumentException("이미지 파일만 업로드 가능합니다.");
         }
     }
 
@@ -68,8 +68,6 @@ public class UserController {
         UserResponse userResponse = userService.find(userId);
         return ResponseEntity.ok().body(ApiResponse.success(userResponse));
     }
-
-
 
     @Tag(name = "전체 유저 호출")
     @GetMapping
@@ -98,7 +96,7 @@ public class UserController {
             validateImageFile(multipartFile);
             byte[] photo = multipartFile.getBytes();
             String fileName = multipartFile.getOriginalFilename();
-            String extension = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+            String extension = multipartFile.getContentType();
             profile = new BinaryContentCreateRequest(fileName, extension, photo);
         }
         UserResponse user = userService.update(userUpdateRequest,profile);
@@ -114,7 +112,7 @@ public class UserController {
 
     // 심화요구사항 DTO 변환
     @GetMapping("/findAll")
-    public ResponseEntity<List<UserDto>> findAll(){
+    public ResponseEntity<ApiResponse<List<UserDto>>> findAll(){
         List<UserResponse> allUser = userService.findAll();
         List<UserDto> dtoList = new ArrayList<>();
         if(!allUser.isEmpty()){
@@ -123,9 +121,8 @@ public class UserController {
                                         user.username(),user.email(),user.profileId(),user.online()));
             }
         }
-        return ResponseEntity.ok().body(dtoList);
+        return ResponseEntity.ok().body(ApiResponse.success(dtoList));
     }
-
 
 
 

@@ -57,13 +57,13 @@ public class MessageController {
         }
         String contentType = multipartFile.getContentType();
         if(contentType == null || !contentType.startsWith("image/")){
-            throw new ImagingOpException("이미지 파일만 업로드 가능합니다.");
+            throw new IllegalArgumentException("이미지 파일만 업로드 가능합니다.");
         }
     }
 
     @Tag(name = "메세지 수정")
     @PutMapping
-    public ResponseEntity<ApiResponse<Message>> updateMessage(@ModelAttribute MessageUpdateRequest request){
+    public ResponseEntity<ApiResponse<Message>> updateMessage(@Valid @ModelAttribute MessageUpdateRequest request){
         Message message = messageService.update(request);
         return ResponseEntity.ok().body(ApiResponse.success(message));
     }

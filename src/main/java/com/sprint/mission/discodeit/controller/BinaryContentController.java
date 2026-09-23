@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -35,5 +36,12 @@ public class BinaryContentController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+name) // 파일 다운로드 ( 없을시 화면 띄우기 )
                 .contentType(MediaType.parseMediaType(binaryContent.getContentType()))
                 .body(binaryContent.getBytes());
+    }
+
+    @Tag(name = "첨부파일 여러 개 조회")
+    @GetMapping("/api/binaryContent/findAll")
+    public ResponseEntity<ApiResponse<List<BinaryContent>>> getBinaryContents(@RequestParam("binaryContentIds") List<UUID> binaryContentIds) {
+        List<BinaryContent> contents = binaryContentService.findAllByIdIn(binaryContentIds);
+        return ResponseEntity.ok().body(ApiResponse.success(contents));
     }
 }

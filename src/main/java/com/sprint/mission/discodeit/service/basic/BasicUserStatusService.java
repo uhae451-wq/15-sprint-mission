@@ -12,13 +12,11 @@ import java.util.*;
 public class BasicUserStatusService implements UserStatusService {
 
     private final UserStatusRepository statuses;
-
     private final UserRepository users;
 
     public UserStatus create(UserStatusCreateRequest request) {
         users.findById(request.userId())
                 .orElseThrow(() -> new NoSuchElementException("존재하지 않는 User"));
-
         if (statuses.findByUserId(request.userId()).isPresent()) throw new IllegalArgumentException("이미 존재하는 접속 상태입니다.");
         return statuses.save(new UserStatus(request.userId(), request.lastActiveAt()));
     }
@@ -34,20 +32,17 @@ public class BasicUserStatusService implements UserStatusService {
 
     public UserStatus update(UserStatusUpdateRequest request) {
         UserStatus status = find(request.id());
-
         status.update(request.lastActiveAt());
         return statuses.save(status);
     }
 
     public UserStatus updateByUserId(UserStatusUpdateByUserIdRequest request) {
-
         UserStatus status = statuses.findByUserId(request.userId()).orElseThrow(() -> new NoSuchElementException("접속 상태가 없습니다."));
         status.update(request.lastActiveAt());
         return statuses.save(status);
     }
 
     public void delete(UUID id) {
-
         statuses.deleteById(id);
     }
 }

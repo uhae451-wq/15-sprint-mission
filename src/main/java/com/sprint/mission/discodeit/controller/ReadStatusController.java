@@ -2,6 +2,7 @@ package com.sprint.mission.discodeit.controller;
 
 import com.sprint.mission.discodeit.common.ApiResponse;
 import com.sprint.mission.discodeit.dto.ReadStatusCreateRequest;
+import com.sprint.mission.discodeit.dto.ReadStatusUpdateRequest;
 import com.sprint.mission.discodeit.entity.ReadStatus;
 import com.sprint.mission.discodeit.service.ReadStatusService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,6 +40,12 @@ public class ReadStatusController {
     public ResponseEntity<ApiResponse<List<ReadStatus>>> getStatusByChannel(@PathVariable("channel-id")UUID channelId){
         List<ReadStatus> list = readStatusService.findAllByChannelId(channelId);
         return ResponseEntity.ok().body(ApiResponse.success(list));
+    }
+
+    @PatchMapping
+    public ResponseEntity<ApiResponse<ReadStatus>> update(@Valid @RequestBody ReadStatusUpdateRequest request) {
+        ReadStatus readStatus = readStatusService.update(request);
+        return ResponseEntity.ok().body(ApiResponse.success(readStatus));
     }
 
 }
