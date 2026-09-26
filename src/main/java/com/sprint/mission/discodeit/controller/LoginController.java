@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,7 @@ public class LoginController {
   @Tag(name = "로그인 기능")
   @PostMapping("/login")
   public ResponseEntity<ApiResponse<UserResponse>> loginUser(
-      @Valid @ModelAttribute LoginRequest request) {
+      @Valid @RequestBody LoginRequest request) {
     UserResponse user = authService.login(request);
     // 쿠키저장?
     // 추후 기능 추가를 위한 로그인 틀?

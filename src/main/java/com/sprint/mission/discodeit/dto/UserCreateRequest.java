@@ -5,11 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public record UserCreateRequest(
-
-    @NotBlank
-    @Schema(description = "화면에 표시할 닉네임", example = "nickname")
-    String nickname,
-
+    
     @NotBlank
     @Schema(description = "로그인에 사용할 사용자 이름", example = "username")
     String username,

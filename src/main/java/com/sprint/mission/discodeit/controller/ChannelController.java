@@ -39,19 +39,19 @@ public class ChannelController {
     return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(channel));
   }
 
-  @Tag(name = "PUBLIC 채널 유저 추가")
+/*  @Tag(name = "PUBLIC 채널 유저 추가")
   @PostMapping("/public/user")
   public ResponseEntity<ApiResponse<ChannelResponse>> publicChannelAddUser(
       @Valid @RequestParam("channel-id") UUID channelId, @RequestParam("user-id") UUID userId) {
     ChannelResponse channel = channelService.addUserToChannel(channelId, userId);
     return ResponseEntity.ok().body(ApiResponse.success(channel));
-  }
+  }*/
 
-  @Tag(name = "PUBLIC 채널 정보 호출")
+  @Tag(name = "채널 정보 호출")
   @GetMapping
   public ResponseEntity<ApiResponse<List<ChannelResponse>>> allPublicChannel(
-      @Valid @RequestParam(required = false) UUID channelId) {
-    List<ChannelResponse> channelList = channelService.findAllPublic(channelId);
+      @Valid @RequestParam(required = false) UUID userId) {
+    List<ChannelResponse> channelList = channelService.findAllByUserId(userId);
     return ResponseEntity.ok().body(ApiResponse.success(channelList));
   }
 

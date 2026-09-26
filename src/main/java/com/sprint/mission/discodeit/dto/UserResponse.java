@@ -9,9 +9,6 @@ public record UserResponse(
     @Schema(description = "사용자 ID")
     UUID id,
 
-    @Schema(description = "화면에 표시되는 닉네임")
-    String nickname,
-
     @Schema(description = "로그인에 사용하는 사용자 이름")
     String username,
 

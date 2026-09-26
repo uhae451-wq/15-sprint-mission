@@ -33,10 +33,11 @@ public class UserController {
   public static final List<String> ALLOWED_EXTENSIONS = List.of("jpg", "jpeg", "png", "gif");
 
   @Tag(name = "유저 생성")
-  @PostMapping
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<ApiResponse<UserResponse>> createUser(
-      @Valid @ModelAttribute UserCreateRequest userCreateRequest,
-      @RequestParam(required = false) MultipartFile multipartFile) throws IOException {
+      @Valid @RequestPart("userCreateRequest") UserCreateRequest userCreateRequest,
+      @RequestParam(value = "profile", required = false) MultipartFile multipartFile)
+      throws IOException {
     BinaryContentCreateRequest profile = null;
     if (multipartFile != null && !multipartFile.isEmpty()) {
       validateImageFile(multipartFile);

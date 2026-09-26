@@ -31,9 +31,9 @@ public class BasicMessageService implements MessageService {
     if (!userRepository.existsById(request.authorId())) {
       throw new IllegalArgumentException("존재하지 않는 유저입니다. " + request.authorId());
     }
-    if (!channelRepository.existsUserByChannelId(request.channelId(), request.authorId())) {
+    /*if (!channelRepository.existsUserByChannelId(request.channelId(), request.authorId())) {
       throw new IllegalArgumentException("채널에 포함되지 않은 유저입니다. " + request.authorId());
-    }
+    }*/
     List<UUID> attachmentIds = new ArrayList<>();
     if (attachments != null) {
       for (BinaryContentCreateRequest attachment : attachments) {

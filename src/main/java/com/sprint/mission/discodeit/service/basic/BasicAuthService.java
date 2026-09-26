@@ -37,7 +37,7 @@ public class BasicAuthService implements AuthService {
     if (status.isPresent()) {
       online = status.get().isOnline();
     }
-    return new UserResponse(user.getId(), user.getNickname(), user.getUsername(), user.getEmail(),
+    return new UserResponse(user.getId(), user.getUsername(), user.getEmail(),
         user.getCreatedAt(), user.getUpdatedAt(), user.getProfileId(), online);
   }
 }
